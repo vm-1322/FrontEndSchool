@@ -35,6 +35,8 @@ export const Theme: ThemeType = {
     },
     primary: '#686868',
     secondary: '#ab3e26',
+    mainBG: '#fdfdfd',
+    textInfo: '#E66A26',
   },
   fonts: {
     primary: 'Open Sans, sans-serif',

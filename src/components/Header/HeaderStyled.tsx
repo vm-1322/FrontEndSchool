@@ -4,7 +4,7 @@ export const StyledHeader = styled.div`
   position: sticky;
   top: 0;
   display: flex;
-  flext-direction: row;
+  flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
   height: 80px;
@@ -24,7 +24,7 @@ export const StyledHeaderLogo = styled.div`
 
 export const StyledHeaderNav = styled.div`
   display: flex;
-  flext-direction: row;
+  flex-direction: row;
   flex-wrap: wrap;
   padding: 20px 0;
 `;
