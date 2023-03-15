@@ -1,0 +1,47 @@
+{
+  "name": "front-end-school",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.tsx",
+  "scripts": {
+    "build": "webpack --env production --progress",
+    "start": "webpack-dev-server --env development",
+    "check-types": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vm-1322/FrontEndSchool.git"
+  },
+  "keywords": [],
+  "author": "Volodymyr Maliugin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vm-1322/FrontEndSchool/issues"
+  },
+  "homepage": "https://github.com/vm-1322/FrontEndSchool#readme",
+  "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.26",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "eslint": "^8.36.0",
+    "eslint-config-react-app": "^7.0.1",
+    "html-webpack-plugin": "^5.5.0",
+    "image-webpack-loader": "^8.1.0",
+    "sass-loader": "^13.2.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
+    "webpack": "^5.76.1",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.12.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.9.0",
+    "styled-components": "^5.3.9"
+  }
+}
