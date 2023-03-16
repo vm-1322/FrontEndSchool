@@ -16,9 +16,7 @@ const AboutUs: React.FC = () => {
       </AboutUsStyledInfo>
       <AboutUsStyledVideo>
         <ReactPlayer
-          url={
-            'https://video.wixstatic.com/video/676f5c_20ddbb0ec9d542508c9c89c39eb4b931/480p/mp4/file.mp4'
-          }
+          url='https://video.wixstatic.com/video/676f5c_20ddbb0ec9d542508c9c89c39eb4b931/480p/mp4/file.mp4'
           playing
           loop
           width='100%'
