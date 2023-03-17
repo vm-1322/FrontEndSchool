@@ -11,3 +11,8 @@ export interface ICourse {
     previewImageLink: string;
   };
 }
+
+export enum Direction {
+  Left = -1,
+  Right = +1,
+}
