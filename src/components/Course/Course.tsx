@@ -78,6 +78,7 @@ const Course: React.FC<ICourseExt> = ({
       currentVideo.currentTime.toString()
     );
   }
+
   const renderSkills = () => {
     return skills.map((item, index) => (
       <StyledCourseSkillsItem key={index}>{item}</StyledCourseSkillsItem>
