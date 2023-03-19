@@ -1,4 +1,6 @@
-import ReactPlayer from 'react-player';
+import { useState } from 'react';
+
+import Hls from 'hls.js';
 
 import Stars from '../Stars';
 
@@ -9,28 +11,73 @@ import {
   StyledCourseVideo,
   StyledCourseInfo,
   StyledCourseTitle,
-  StyledCourseRaiting,
   StyledCourseRaitingLessons,
+  StyledCourseRaiting,
   StyledCourseRaitingStars,
   StyledCourseLessons,
   StyledCourseSkills,
   StyledCourseSkillsList,
   StyledCourseSkillsItem,
+  StyledCourseView,
 } from './CourseStyled';
 
 import { ICourse } from '../../types';
-import { useState } from 'react';
 
-const Course: React.FC<ICourse> = ({
+interface ICourseExt extends ICourse {
+  onClickCourse: (courseId: string) => void;
+}
+
+const Course: React.FC<ICourseExt> = ({
+  id,
   title,
   lessonsCount,
   rating,
   skills = [],
   previewImageLink,
-  courseVideoPreview = {},
+  courseVideoPreview,
+  onClickCourse,
 }) => {
   const [isHovering, setIsHovering] = useState(false);
+  const [currentVideo, setCurrentVideo] = useState<HTMLVideoElement>();
 
+  const playVideo = async () => {
+    if (currentVideo) {
+      currentVideo.currentTime = Number(
+        sessionStorage.getItem(`paramsVideo-time ${id}`)
+      );
+
+      await currentVideo.play();
+    }
+  };
+
+  if (isHovering) {
+    const videoId = sessionStorage.getItem('paramsVideo-videoId');
+
+    if (!currentVideo || currentVideo.id !== videoId) {
+      const video = document.getElementById(id) as HTMLVideoElement;
+
+      setCurrentVideo(video);
+      sessionStorage.setItem('paramsVideo-videoId', video.id);
+    }
+
+    if (Hls.isSupported()) {
+      const newHls = new Hls();
+      newHls.loadSource(courseVideoPreview.link);
+      newHls.attachMedia(currentVideo as HTMLVideoElement);
+    }
+
+    if (currentVideo && currentVideo.paused) {
+      playVideo();
+    }
+  }
+
+  if (!isHovering && currentVideo && !currentVideo.paused) {
+    currentVideo.pause();
+    sessionStorage.setItem(
+      `paramsVideo-time ${id}`,
+      currentVideo.currentTime.toString()
+    );
+  }
   const renderSkills = () => {
     return skills.map((item, index) => (
       <StyledCourseSkillsItem key={index}>{item}</StyledCourseSkillsItem>
@@ -40,20 +87,14 @@ const Course: React.FC<ICourse> = ({
   return (
     <StyledCourse>
       <StyledCoursePictureVideo
-        onMouseEnter={() => setIsHovering(false)}
+        onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        {isHovering ? (
-          <StyledCourseVideo>
-            <ReactPlayer
-              url='https://wisey.app/videos/lack-of-motivation-how-to-overcome-it/preview/AppleHLS1/preview.m3u8/'
-              playing
-              loop
-            />
-          </StyledCourseVideo>
-        ) : (
-          <StyledCoursePicture src={`${previewImageLink}/cover.webp`} />
-        )}
+        <StyledCoursePicture
+          src={`${previewImageLink}/cover.webp`}
+          isHovering={isHovering}
+        />
+        <StyledCourseVideo id={id} isHovering={isHovering} loop muted />
       </StyledCoursePictureVideo>
       <StyledCourseInfo>
         <StyledCourseTitle>{title}</StyledCourseTitle>
@@ -73,6 +114,9 @@ const Course: React.FC<ICourse> = ({
           </StyledCourseSkills>
         )}
       </StyledCourseInfo>
+      <StyledCourseView onClick={() => onClickCourse(id)}>
+        View Details
+      </StyledCourseView>
     </StyledCourse>
   );
 };

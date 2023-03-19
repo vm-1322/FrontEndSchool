@@ -1,5 +1,5 @@
 export interface ICourse {
-  id?: string;
+  id: string;
   title: string;
   lessonsCount: number;
   rating: number;
@@ -10,6 +10,18 @@ export interface ICourse {
     duration: number;
     previewImageLink: string;
   };
+  description?: string;
+  lessons?: Array<ILesson>;
+}
+
+export interface ILesson {
+  id: string;
+  title: string;
+  duration: number;
+  status: string;
+  link: string;
+  order: number;
+  previewImageLink: string;
 }
 
 export enum Direction {
