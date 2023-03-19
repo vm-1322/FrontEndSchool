@@ -39,6 +39,7 @@ export const Theme: ThemeType = {
     textInfo: '#E66A26',
     starNoRating: '#b3b3b3',
     starRating: '#ffd700',
+    blocked: '#d3d3d3',
   },
   fonts: {
     primary: 'Open Sans, sans-serif',

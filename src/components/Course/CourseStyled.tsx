@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const StyledCourse = styled.div`
   width: 370px;
   margin: 20px auto;
+  padding-bottom: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
   ${(props) => props.theme.media.tablet} {
@@ -16,7 +17,11 @@ export const StyledCoursePictureVideo = styled.div`
   height: 250px;
 `;
 
-export const StyledCoursePicture = styled.div<{ src: string }>`
+export const StyledCoursePicture = styled.div<{
+  src: string;
+  isHovering?: boolean;
+}>`
+  display: ${(props) => (props.isHovering ? 'none' : 'block')};
   height: 250px;
   background-image: url(${(props) => props.src});
   background-size: cover;
@@ -24,7 +29,12 @@ export const StyledCoursePicture = styled.div<{ src: string }>`
   background-position: center;
 `;
 
-export const StyledCourseVideo = styled.div``;
+export const StyledCourseVideo = styled.video<{ isHovering?: boolean }>`
+  display: ${(props) => (props.isHovering ? 'block' : 'none')};
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 
 export const StyledCourseInfo = styled.div`
   padding: 10px;
@@ -60,3 +70,19 @@ export const StyledCourseSkillsList = styled.div`
 `;
 
 export const StyledCourseSkillsItem = styled.div``;
+
+export const StyledCourseView = styled.button`
+  display: block;
+  width: 150px;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: ${(props) => props.theme.colors.textInfo};
+  color: ${(props) => props.theme.colors.common.white};
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+
+  border: 1px solid ${(props) => props.theme.colors.textInfo};
+  border-radius: 20px;
+  cursor: pointer;
+`;

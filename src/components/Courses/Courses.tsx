@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Course from '../Course';
 import Pagination from '../Pagination';
@@ -18,8 +19,13 @@ const Courses: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [firstItem, setFirstItem] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const navigation = useNavigate();
 
   const coursesPerPage = 10;
+
+  const handlerClickCourse = (courseId: string) => {
+    navigation(`/course/${courseId}`);
+  };
 
   const handlerClickPage = (num: number) => {
     setCurrentPage(num);
@@ -56,12 +62,14 @@ const Courses: React.FC = () => {
         return (
           <Fragment key={courses[courseIndex].id}>
             <Course
+              id={courses[courseIndex].id}
               title={courses[courseIndex].title}
               lessonsCount={courses[courseIndex].lessonsCount}
               rating={courses[courseIndex].rating}
               skills={courses[courseIndex].skills}
               previewImageLink={courses[courseIndex].previewImageLink}
               courseVideoPreview={courses[courseIndex].courseVideoPreview}
+              onClickCourse={handlerClickCourse}
             />
           </Fragment>
         );
