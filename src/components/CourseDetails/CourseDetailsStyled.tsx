@@ -17,6 +17,10 @@ export const StyledCourseDetailsTitleInfoVideo = styled.div`
   ${(props) => props.theme.media.tablet} {
     width: 70%;
   }
+
+  ${(props) => props.theme.media.desktopLarge} {
+    width: 60%;
+  }
 `;
 
 export const StyledCourseDetailsTitleInfo = styled.div`
@@ -31,11 +35,16 @@ export const StyledCourseDetailsTitle = styled.h2``;
 
 export const StyledCourseDetailsVideo = styled.video`
   width: 370px;
-  height: 250px;
+  height: 200px;
 
   ${(props) => props.theme.media.tablet} {
     width: 670px;
-    height: 400px;
+    height: 350px;
+  }
+
+  ${(props) => props.theme.media.desktopLarge} {
+    width: 1000px;
+    height: 600px;
   }
 `;
 
@@ -49,9 +58,18 @@ export const StyledCourseDetailsLessonsList = styled.div`
     width: 30%;
     margin: 145px 10px 10px;
   }
+
+  ${(props) => props.theme.media.desktopLarge} {
+    width: 40%;
+  }
 `;
 
-export const StyledCourseDetailsLessonInfo = styled.div``;
+export const StyledCourseDetailsLessonInfo = styled.div`
+  margin-top: 20px;
+  font-weight: 700;
+`;
+
+export const StyledCourseDetailsPlaybackSpeed = styled.div``;
 
 export const StyledCourseDetailsLessonsListItem = styled.div`
   display: flex;

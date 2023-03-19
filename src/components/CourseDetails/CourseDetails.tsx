@@ -7,6 +7,7 @@ import Lock from '../../icons/lock';
 
 import { ICourse, ILesson } from '../../types';
 
+import { formatTime } from '../../utilities/common';
 import { getCourse } from '../../api/courses';
 
 import {
@@ -17,6 +18,7 @@ import {
   StyledCourseDetailsVideo,
   StyledCourseDetailsInfo,
   StyledCourseDetailsLessonInfo,
+  StyledCourseDetailsPlaybackSpeed,
   StyledCourseDetailsLessonsList,
   StyledCourseDetailsLessonsListItem,
   StyledCourseDetailsLessonsListItemNumber,
@@ -69,6 +71,33 @@ const CourseDetails: React.FC = () => {
     if (founded && founded.status !== 'locked') setLesson(founded);
   };
 
+  const handlerKeypress = (key: KeyboardEvent) => {
+    const video: HTMLVideoElement = document.getElementById(
+      'course-details-video'
+    ) as HTMLVideoElement;
+
+    if (video) {
+      switch (key.code) {
+        case 'KeyD':
+          video.playbackRate -= 0.25;
+          video.playbackRate = Math.max(video.playbackRate, 0.25);
+
+          break;
+        case 'KeyU':
+          video.playbackRate += 0.25;
+          video.playbackRate = Math.min(video.playbackRate, 2);
+
+          break;
+        case 'KeyN':
+          video.playbackRate = 1;
+
+          break;
+      }
+
+      console.log('handlerKeypress', key);
+    }
+  };
+
   const renderLessonsList = () => {
     return course?.lessons?.map((item, index) => {
       return (
@@ -89,7 +118,7 @@ const CourseDetails: React.FC = () => {
             {item.title}
           </StyledCourseDetailsLessonsListItemTitle>
           <StyledCourseDetailsLessonsListItemTime>
-            {item.duration}
+            {formatTime(item.duration)}
           </StyledCourseDetailsLessonsListItemTime>
         </StyledCourseDetailsLessonsListItem>
       );
@@ -110,6 +139,14 @@ const CourseDetails: React.FC = () => {
 
   useEffect(() => {
     retrieveData();
+
+    window.addEventListener('keypress', (event: KeyboardEvent) =>
+      handlerKeypress(event)
+    );
+
+    return () => {
+      window.removeEventListener('keypress', handlerKeypress);
+    };
   }, []);
 
   return (
@@ -122,6 +159,9 @@ const CourseDetails: React.FC = () => {
           </StyledCourseDetailsInfo>
         </StyledCourseDetailsTitleInfo>
         <StyledCourseDetailsVideo id='course-details-video' controls />
+        <StyledCourseDetailsPlaybackSpeed>
+          Playback speed: U - up, D - down, N - normal
+        </StyledCourseDetailsPlaybackSpeed>
         <StyledCourseDetailsLessonInfo>
           {`Lesson ${lesson?.order} - ${lesson?.title}`}
         </StyledCourseDetailsLessonInfo>
